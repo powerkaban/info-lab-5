@@ -15,7 +15,7 @@ void printMatrix(int matrix[2][2], int rows, int cols) {
 
 void loadMatrix(int matrix[2][2], int rows, int cols) {
     for (int col = 0; col < cols; col++) {
-        printf_s("ввести %d строку", col);
+        printf_s("ввести %d строку: ", col + 1);
         for (int row = 0; row < rows; row++) {
             scanf_s("%d", &matrix[col][row]);
         }
@@ -48,7 +48,7 @@ void processMatrix(int matrix[2][2], int rows, int cols) {
 
 
 void inputArraySize(int *rows, int *cols) {
-    printf_s("введите ширину и дину массива");
+    printf_s("введите ширину и длину массива через пробел: ");
     scanf_s("%d %d", rows, cols);
 }
 
