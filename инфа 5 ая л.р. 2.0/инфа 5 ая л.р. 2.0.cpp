@@ -1,33 +1,35 @@
 ﻿#include <iostream>
 using namespace std;
 
+#define N 10 
+#define M 10 
 
-void printMatrix(int matrix[2][2], int rows, int cols) {
-    printf("Исходная матрица:\n");
+
+void printMatrix(int matrix[N][M], int rows, int cols) {
+    printf("Текущее состояние матрицы:\n");
     for (int row = 0; row < rows; row++){
         for (int col = 0; col < cols; col++) {
-            printf("%d", matrix[col][row]);
+            printf("%d\t", matrix[row][col]);
         }
-        printf("\n");
+        printf("\n\n");
     }
 }
 
 
-void loadMatrix(int matrix[2][2], int rows, int cols) {
-    for (int col = 0; col < cols; col++) {
-        printf_s("ввести %d строку: ", col + 1);
-        for (int row = 0; row < rows; row++) {
-            scanf_s("%d", &matrix[col][row]);
+void loadMatrix(int matrix[N][M], int rows, int cols) {
+    for (int row = 0; row < rows; row++) {
+        printf_s("Введите %d строку:\n", row);
+        for (int col = 0; col < cols; col++) {
+            scanf_s("%d", &matrix[row][col]);
         }
     }
 }
 
 
-void processMatrix(int matrix[2][2], int rows, int cols) {
-    int maxElement = 0;
-    int count = 0;
-
+void processMatrix(int matrix[N][M], int rows, int cols) {
     for (int col = 0; col < cols; col++) {
+        int maxElement = 0;
+        int count = 0;
         for (int row = 0; row < rows; row++) {
             if (matrix[row][col] % 7 == 0) {
                 count++;
@@ -35,11 +37,11 @@ void processMatrix(int matrix[2][2], int rows, int cols) {
                     maxElement = matrix[row][col];
                 }
             }
-        }
-        if (count % 2 == 0) {
-            for (int row = 0; row < rows; row++) {
-                if (matrix[row][col] == maxElement) {
-                    matrix[row][col] = 0;
+            if (count % 2 == 0) {
+                for (int row = 0; row < rows; row++) {
+                    if (matrix[row][col] == maxElement) {
+                        matrix[row][col] = 0;
+                    }
                 }
             }
         }
@@ -56,57 +58,26 @@ void inputArraySize(int *rows, int *cols) {
 int main() {
     setlocale(LC_ALL, "RU");
 
-    int matrix[2][2];
+    int matrix[N][M];
     int ROWS, COLS;
     inputArraySize(&ROWS, &COLS);
 
     loadMatrix(matrix, ROWS, COLS);
     printMatrix(matrix, ROWS, COLS);
     processMatrix(matrix, ROWS, COLS);
+    printMatrix(matrix, ROWS, COLS);
 
     return 0;
 }
 
 
 /*
-int main()
-{
-    printf("zadanie nomer 5 variant 15 \n");
-    int cols, rows,A[30];
-    printf("cols:");
-    scanf("%d",&cols);
-    printf("rows:");
-    scanf("%d",&rows);
-    printf("Massive:");
-    for(int i =0;i<rows*cols;i++){
-        scanf("%d",&A[i]);
-    }
-    int ma,co;
-    int mai;
-    for(int i =0;i<rows;i++){
-        ma = -100000;
-        co=0;
-        for(int j =0;j<cols;j++){
-            if (ma<A[i+j*cols]){
-                ma = A[i+j*cols];
-                mai = i+j*cols;
-            }
-            if(A[i+j*cols]%7==0){
-                co++;
-            }
-        }
-        if(co%2==0){
-            A[mai]=0;
-        }
-        
-    }
-    
-    for(int i =0;i<cols;i++){
-        for(int j =0;j<rows;j++){
-            printf(" %d",A[i*cols+j]);
-        }
-        printf("\n");
-    }
-    return 0;
-}
+7 2 14 15
+21 22 23 24
+1 32 77 34
+0 42 43 44
+
+7 2
+14 7
+
 */
