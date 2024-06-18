@@ -1,47 +1,46 @@
 ﻿#include <iostream>
 using namespace std;
 
-#define N 10 
-#define M 10 
+const int N = 10;
+const int M = 10;
 
-
-void printMatrix(int matrix[N][M], int rows, int cols) {
+void printMatrix(int matrix[N][M], int cols, int rows) {
     printf("Текущее состояние матрицы:\n");
-    for (int row = 0; row < rows; row++){
-        for (int col = 0; col < cols; col++) {
-            printf("%d\t", matrix[row][col]);
+    for (int col = 0; col < cols; col++){
+        for (int row = 0; row < rows; row++) {
+            printf("%d\t", matrix[col][row]);
         }
         printf("\n\n");
     }
 }
 
 
-void loadMatrix(int matrix[N][M], int rows, int cols) {
-    for (int row = 0; row < rows; row++) {
-        printf_s("Введите %d строку:\n", row);
-        for (int col = 0; col < cols; col++) {
-            scanf_s("%d", &matrix[row][col]);
-        }
-    }
-}
-
-
-void processMatrix(int matrix[N][M], int rows, int cols) {
+void loadMatrix(int matrix[N][M], int cols, int rows) {
     for (int col = 0; col < cols; col++) {
-        int maxElement = 0;
-        int count = 0;
+        printf_s("Введите %d строку:\n", col+1);
         for (int row = 0; row < rows; row++) {
-            if (matrix[row][col] % 7 == 0) {
+            scanf_s("%d", &matrix[col][row]);
+        }
+    }
+}
+
+
+void processMatrix(int matrix[N][M], int cols, int rows) {
+    for (int row = 0; row < rows; row++) {
+        int maxElement = -99999999999;
+        int count = 0;
+        for (int col = 0; col < cols; col++) {
+            if (matrix[col][row] % 7 == 0) {
                 count++;
-                if (matrix[row][col] > maxElement) {
-                    maxElement = matrix[row][col];
+                if (matrix[col][row] > maxElement) {
+                    maxElement = matrix[col][row];
                 }
             }
-            if (count % 2 == 0) {
-                for (int row = 0; row < rows; row++) {
-                    if (matrix[row][col] == maxElement) {
-                        matrix[row][col] = 0;
-                    }
+        }
+        if (count % 2 == 0) {
+            for (int col = 0; col < cols; col++) {
+                if (matrix[col][row] == maxElement) {
+                    matrix[col][row] = 0;
                 }
             }
         }
@@ -49,9 +48,9 @@ void processMatrix(int matrix[N][M], int rows, int cols) {
 }
 
 
-void inputArraySize(int *rows, int *cols) {
-    printf_s("введите ширину и длину массива через пробел: ");
-    scanf_s("%d %d", rows, cols);
+void inputArraySize(int *cols, int *rows) {
+    printf_s("Введите длину и ширину массива через пробел: ");
+    scanf_s("%d %d", cols, rows);
 }
 
 
